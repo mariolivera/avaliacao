@@ -50,8 +50,8 @@ VALUES
 SELECT * FROM tb_alunos;
 
 INSERT INTO tb_professores
-(nome, endereco, formacao, status, cpf)
+(endereco, formacao, status, nome, cpf)
 VALUES
-('Alessandro','Rua barca semi nova 123', 'HTML, CSS, JS, React', true, '12345612345'),
-('Allan','Rua idelfonso albano 222, ap 1403', 'SABE TUDO, BRABISSIMO', true, '99999999999'),
-('Gleidson', 'Rua oscar frança 88', 'Formado nas ruas', true, '22222222222');
+('Rua barca semi nova 123', 'HTML, CSS, JS, React', true, 'Alessandro', '12345612345'),
+('Rua idelfonso albano 222, ap 1403', 'SABE TUDO, BRABISSIMO', true,'Allan', '99999999999'),
+('Rua oscar frança 88', 'Formado nas ruas', true,'Gleidson', '22222222222');

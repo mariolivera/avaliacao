@@ -65,10 +65,10 @@ class ProfessorController extends AbstractController
         $professor = $rep->buscarUm($id);
         $this->render('professor/editar', [$professor]);
         if (false === empty($_POST)){
-            $professor->nome = $_POST['nome'];
             $professor->endereco = $_POST['endereco'];
             $professor->formacao = $_POST['formacao'];
             $professor->status = $_POST['status'];
+            $professor->nome = $_POST['nome'];
             $professor->CPF = $_POST['CPF'];
 
             try {

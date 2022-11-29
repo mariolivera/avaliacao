@@ -23,18 +23,18 @@
             // if(isset($alunos) && sizeOf($alunos) > 0){
             foreach ($cursos ?? [] as $curso) {
                 echo "
-                            <tr>
-                                <td>{$curso->id}</td>
-                                <td>{$curso->nome}</td>
-                                <td>{$curso->periodo}</td>
-                                <td>{$curso->professor}</td>
-                                <td>{$curso->laboratorio}</td>
-                                <td>
-                                    <a href='/alunos/editar?id={$curso->id}' class='btn btn-outline-warning btn-sm'>Editar</a>
-                                    <a href='/alunos/excluir?id={$curso->id}' class='btn btn-outline-danger btn-sm'>Excluir</a>
-                                </td>
-                            </tr>
-                        ";
+                    <tr>
+                        <td>{$curso->id}</td>
+                        <td>{$curso->nome}</td>
+                        <td>{$curso->periodo}</td>
+                        <td>{$curso->professor}</td>
+                        <td>{$curso->laboratorio}</td>
+                        <td>
+                            <a href='/cursos/editar?id={$curso->id}' class='btn btn-outline-warning btn-sm'>Editar</a>
+                            <a href='/cursos/excluir?id={$curso->id}' class='btn btn-outline-danger btn-sm'>Excluir</a>
+                        </td>
+                    </tr>
+                ";
             }
             // }
             ?>

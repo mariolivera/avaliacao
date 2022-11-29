@@ -56,23 +56,23 @@ class CursoRepository implements RepositoryInterface
         return $dados;
     }
 
-    public function atualizar(object $novosdados, string $id): object
+    public function atualizar(object $novosDados, string $id): object
     {
         $sql = "UPDDATE " . self::TABLE .
-            "SET
-            nome='{$novosdados->nome}',
-            periodo='{$novosdados->periodo}',
-            professor='{$novosdados->professor}',
-            laboratorio='{$novosdados->laboratorio}',
+            " SET
+            nome='{$novosDados->nome}',
+            periodo='{$novosDados->periodo}',
+            professor='{$novosDados->professor}',
+            laboratorio='{$novosDados->laboratorio}',
         WHERE id = {$id}';";
         $this->pdo->query($sql);
-        return $novosdados;
+        return $novosDados;
     }
 
     public function excluir(string $id): void
     {
         //$conexao = DatabaseConnection::abrirConexao();
-        $sql = "DELETE FROM " . self::TABLE . " WHERE id = '{$id}'";
+        $sql = "DELETE FROM ".self::TABLE." WHERE id = '{$id}'";
         $query = $this->pdo->query($sql);
         $query->execute();
     }

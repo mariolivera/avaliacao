@@ -46,10 +46,10 @@ class ProfessorRepository implements RepositoryInterface
         $sql = "INSERT INTO ". self::TABLE .
             "(nome, endereço, formacao, status, cpf)" .
             "VALUE (
-                '{$dados->nome}',
                 '{$dados->endereco}',
                 '{$dados->formacao}',
                 '{$dados->status}',
+                '{$dados->nome}',
                 '{$dados->cpf}',
             );";
             $this->pdo->query($sql);
@@ -61,10 +61,10 @@ class ProfessorRepository implements RepositoryInterface
     {
         $sql = "UPDDATE " . self::TABLE . 
         "SET
-            nome='{$novosdados->nome}',
             endereco='{$novosdados->endereco}',
             formacao='{$novosdados->formacao}',
             status='{$novosdados->status}',
+            nome='{$novosdados->nome}',
             cpf='{$novosdados->cpf}',
         WHERE id = {$id}';";
         $this->pdo->query($sql);

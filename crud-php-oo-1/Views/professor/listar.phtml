@@ -9,25 +9,25 @@
         <thead class="table-dark">
             <tr>
                 <th>#ID</th>
-                <th>Nome</th>
                 <th>Endereço</th>
                 <th>Formação</th>
                 <th>Status</th>
+                <th>Nome</th>
                 <th>CPF</th>
                 <th>Ações</th>
             </tr>
         </thead>
         <tbody>
             <?php
-            if (isset($professores) && sizeOf($professores) > 0) {
-                foreach ($professores as $professor) {
+            //if (isset($professores) && sizeOf($professores) > 0) {
+                foreach ($professores ?? [] as $professor) {
                     echo "
                             <tr>
                                 <td>{$professor->id}</td>
-                                <td>{$professor->nome}</td>
                                 <td>{$professor->Endereco}</td>
                                 <td>{$professor->formacao}</td>
                                 <td>{$professor->status}</td>
+                                <td>{$professor->nome}</td>
                                 <td>{$professor->cpf}</td>
                                 <td>
                                     <a href='/professores/editar?id={$professor->id}' class='btn btn-warning'>Editar</a>
@@ -36,7 +36,7 @@
                             </tr>
                         ";
                 }
-            }
+            //}
             ?>
         </tbody>
     </table>
