@@ -17,7 +17,7 @@ CREATE TABLE tb_professores (
     id INT PRIMARY KEY AUTO_INCREMENT,
     endereco VARCHAR(45) NOT NULL,
     formacao VARCHAR(45) NOT NULL,
-    status TINYINT NOT NULL,
+    status VARCHAR(45) NOT NULL,
     nome VARCHAR(100) NOT NULL,
     cpf CHAR(11) UNIQUE NOT NULL
 );
@@ -55,3 +55,14 @@ VALUES
 ('Rua barca semi nova 123', 'HTML, CSS, JS, React', true, 'Alessandro', '12345612345'),
 ('Rua idelfonso albano 222, ap 1403', 'SABE TUDO, BRABISSIMO', true,'Allan', '99999999999'),
 ('Rua oscar frança 88', 'Formado nas ruas', true,'Gleidson', '22222222222');
+
+SELECT * FROM tb_professores;
+
+INSERT INTO tb_cursos
+(nome, periodo, professor, laboratorio)
+VALUES
+('php', 'manham', 'Alessandro', 'bill gates'),
+('css', 'tarde','Allan', 'steav jobs'),
+('javascript', 'noite','Gleidson', 'bill gates');
+
+SELECT * FROM tb_cursos;
