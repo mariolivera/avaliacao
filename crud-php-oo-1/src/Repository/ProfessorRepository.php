@@ -24,7 +24,7 @@ class ProfessorRepository implements RepositoryInterface
     {
         //$conexao = DatabaseConnection::abrirConexao();
 
-        $sql = "SELECT * FROM ".self::TABLE;
+        $sql = "SELECT * FROM " . self::TABLE;
 
         $query = $this->pdo->query($sql);
 
@@ -44,7 +44,7 @@ class ProfessorRepository implements RepositoryInterface
     public function inserir(object $dados): object
     {
         $sql = "INSERT INTO ". self::TABLE .
-            "(nome, endereço, formacao, status, cpf)" .
+        "( endereço, formacao, status, nome, cpf)" .
             "VALUE (
                 '{$dados->endereco}',
                 '{$dados->formacao}',
