@@ -5,6 +5,7 @@
 use App\Connection\DatabaseConnection;
 
 include_once '../vendor/autoload.php';
+session_start(); //esse session é nescesasrio para rodar o progama, sempre depois do autoload.
 
 include '../config/database.php';
 

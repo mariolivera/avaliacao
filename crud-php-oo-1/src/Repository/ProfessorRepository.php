@@ -11,7 +11,7 @@ use PDO;
 class ProfessorRepository implements RepositoryInterface
 {
 
-    public const TABLE = "tb_professores";
+    public const TABLE = "tb_professor"; // na digital coleger usa o banco de dados de professores como |professor|
 
     public PDO $pdo;
 

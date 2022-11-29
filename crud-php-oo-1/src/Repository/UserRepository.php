@@ -8,19 +8,28 @@ use App\Connection\DatabaseConnection;
 use App\Model\User;
 use PDO;
 
-class UserRepository 
+class UserRepository
 {
     private PDO $pdo;
-    public const TABLE = 'tb_user'; 
+    public const TABLE = 'tb_user';
 
     public function __construct()
     {
         $this->pdo = DatabaseConnection::abrirConexao();
     }
 
+    public function findOneByEmail(string $email): User|bool
+    {
+        $sql = "SELECT * FROM " . self::TABLE . " WHERE email='{$email}'";
+        $query = $this->pdo->query($sql);
+        $query->execute();
+
+        return $query->fetchObject(User::class);
+    }
+
     public function findAll(): iterable
     {
-        $sql = 'SELECT * FROM '.self::TABLE;
+        $sql = 'SELECT * FROM ' . self::TABLE;
 
         $query = $this->pdo->query($sql);
 
@@ -31,7 +40,7 @@ class UserRepository
 
     public function insert(User $user): User
     {
-        $sql = "INSERT INTO ".self::TABLE."(name, email, password, profile)";
+        $sql = "INSERT INTO " . self::TABLE . "(name, email, password, profile)";
         $sql .= " VALUES ('{$user->name}', '{$user->email}', '{$user->password}', '{$user->profile}')";
 
         $this->pdo->query($sql);

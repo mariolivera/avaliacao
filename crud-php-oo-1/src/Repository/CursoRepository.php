@@ -11,7 +11,7 @@ use PDO;
 class CursoRepository implements RepositoryInterface
 {
 
-    public const TABLE = "tb_curso";
+    public const TABLE = "tb_cursos"; // na digital coleger usa o banco de dados de curso como |cursos|
 
     public PDO $pdo;
 

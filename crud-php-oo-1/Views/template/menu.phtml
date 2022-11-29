@@ -6,11 +6,13 @@
 
         <a href="/professores/listar" class="btn btn-outline-dark">Professor</a>
 
-        <a href="/cursos/listar" class="btn btn-outline-dark">Cursos</a> 
+        <a href="/cursos/listar" class="btn btn-outline-dark">Cursos</a>
+        <a href="/ususarios/listar" class="btn btn-outline-dark">Usuários</a>
     </div>
 
     <div class="text-end">
-        <a href="/logout" class="btn btn-outline-danger">Desconectar</a>
+        Bem vindo <?php echo APP\Security\UserSecurity::getUser()->name; ?>
+        <a href="/desconectar" class="btn btn-outline-danger">Desconectar</a>
     </div>
 </nav>
 
