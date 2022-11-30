@@ -27,25 +27,25 @@ class AlunoRepository implements RepositoryInterface
         $query = $this->pdo->query($sql);
 
         //executando o comando lá no banco de dados
-        $query->execute(); 
+        $query->execute();
 
         return $query->fetchAll(PDO::FETCH_CLASS, Aluno::class); //pegando os dados e tranformando em array
     }
 
     public function buscarUm(string $id): object
     {
-        $sql = "SELECT * FROM ".self::TABLE." WHERE id = '{$id}'";
+        $sql = "SELECT * FROM " . self::TABLE . " WHERE id = '{$id}'";
         $query = $this->pdo->query($sql);
         $query->execute();
-        return $query->fetchObject(Aluno::class); 
+        return $query->fetchObject(Aluno::class);
     }
 
     public function inserir(object $dados): object
     {
         $matricula = date('Ymds') . substr($dados->cpf, -2);
 
-        $sql = "INSERT INTO " . self::TABLE . 
-            "(nome, email, cpf, matricula, status, dataNascimento, genero) " . 
+        $sql = "INSERT INTO " . self::TABLE .
+            "(nome, email, cpf, matricula, status, dataNascimento, genero) " .
             "VALUES (
                 '{$dados->nome}', 
                 '{$dados->email}', 
@@ -59,11 +59,11 @@ class AlunoRepository implements RepositoryInterface
         $this->pdo->query($sql);
 
         return $dados;
-    } 
+    }
 
     public function atualizar(object $novosDados, string $id): object
     {
-        $sql = "UPDATE " . self::TABLE . 
+        $sql = "UPDATE " . self::TABLE .
             " SET 
                 nome='{$novosDados->nome}',
                 email='{$novosDados->email}',
@@ -79,7 +79,7 @@ class AlunoRepository implements RepositoryInterface
 
     public function excluir(string $id): void
     {
-        $sql = "DELETE FROM ".self::TABLE." WHERE id = '{$id}'";
+        $sql = "DELETE FROM " . self::TABLE . " WHERE id = '{$id}'";
         $query = $this->pdo->query($sql);
         $query->execute();
     }
