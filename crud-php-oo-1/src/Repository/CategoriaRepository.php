@@ -1,7 +1,6 @@
 <?php
 
 declare(strict_types=1);
-
 namespace App\Repository;
 
 use App\Connection\DatabaseConnection;
@@ -30,7 +29,7 @@ class CategoriaRepository implements RepositoryInterface
 
     public function buscarUm(string $id): object
     {
-        $sql = "SELECT * FROM " . self::TABLE . " WHERE id ='{$id}'";
+        $sql = "SELECT * FROM ".self::TABLE." WHERE id ='{$id}'";
         $query = $this->pdo->query($sql);
         $query->execute();
         return $query->fetchObject(Categoria::class);
@@ -38,14 +37,14 @@ class CategoriaRepository implements RepositoryInterface
 
     public function inserir(object $dados): object
     {
-        $sql = "INSERT INTO " . self::TABLE . "(nome) " . "VALUES ('{$dados->nome}');";
+        $sql = "INSERT INTO ".self::TABLE."(nome) "."VALUES ('{$dados->nome}');";
         $this->pdo->query($sql);
         return $dados;
     }
 
     public function atualizar(object $novosDados, string $id): object
     {
-        $sql = "UPDATE " . self::TABLE . " SET
+        $sql = "UPDATE ".self::TABLE." SET
             nome='{$novosDados->nome}' WHERE id = '{$id}';";
         $this->pdo->query($sql);
         return $novosDados;
@@ -54,7 +53,7 @@ class CategoriaRepository implements RepositoryInterface
     public function excluir(string $id): void
     {
         //$conexao = DatabaseConnection::abrirConexao();
-        $sql = "DELETE FROM " . self::TABLE . " WHERE id = '{$id}'";
+        $sql = "DELETE FROM ".self::TABLE." WHERE id = '{$id}'";
         $query = $this->pdo->query($sql);
         $query->execute();
     }

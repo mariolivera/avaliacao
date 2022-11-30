@@ -43,8 +43,8 @@ class CursoController extends AbstractController
 
         $curso = new Curso();
         $curso->nome = $_POST['nome'];
-        $curso->descricao = $_POST['descricao'];
         $curso->cargaHoraria = intval($_POST['cargaHoraria']);
+        $curso->descricao = $_POST['descricao'];
         $curso->categoria_id = intval($_POST['categoria']);
 
         $this->repository->inserir($curso);
@@ -61,7 +61,7 @@ class CursoController extends AbstractController
 
         //     die('Vish, aconteceu um erro');
         // }
-        WebNotification::add('Aluno cadastrado com sucesso', 'success');
+        WebNotification::add('Curso cadastrado com sucesso', 'success');
         $this->redirect('/cursos/listar');
     }
 
@@ -71,7 +71,7 @@ class CursoController extends AbstractController
 
         $this->repository->excluir($id);
 
-        WebNotification::add('Aluno excluido com sucesso', 'danger');
+        WebNotification::add('Curso excluido com sucesso, ou não, pq tu sabe sem curso, vai pegar na enchada', 'danger');
         $this->redirect('/cursos/listar');
     }
 
@@ -88,11 +88,11 @@ class CursoController extends AbstractController
         if (false === empty($_POST)) {
             $curso = new Curso();
             $curso->nome = $_POST['nome'];
-            $curso->descricao = $_POST['descricao'];
             $curso->cargaHoraria = intval($_POST['cargaHoraria']);
+            $curso->descricao = $_POST['descricao'];
             $curso->categoria_id = intval($_POST['categoria']);
             $this->repository->atualizar($curso, $id);
-            WebNotification::add('Aluno editado com sucesso', 'success');
+            WebNotification::add('Curso editado com sucesso', 'success');
             $this->redirect('/cursos/listar');
         }
     }
