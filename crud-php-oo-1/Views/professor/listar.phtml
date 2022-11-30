@@ -9,9 +9,6 @@
         <thead class="table-dark">
             <tr>
                 <th>#ID</th>
-                <th>Endereço</th>
-                <th>Formação</th>
-                <th>Status</th>
                 <th>Nome</th>
                 <th>CPF</th>
                 <th>Ações</th>
@@ -19,14 +16,11 @@
         </thead>
         <tbody>
             <?php
-            //if (isset($professores) && sizeOf($professores) > 0) {
-                foreach ($professores ?? [] as $professor) {
+            if (isset($professores) && sizeOf($professores) > 0) {
+                foreach ($professores as $professor) {
                     echo "
                             <tr>
                                 <td>{$professor->id}</td>
-                                <td>{$professor->endereco}</td>
-                                <td>{$professor->formacao}</td>
-                                <td>{$professor->status}</td>
                                 <td>{$professor->nome}</td>
                                 <td>{$professor->cpf}</td>
                                 <td>
@@ -36,7 +30,7 @@
                             </tr>
                         ";
                 }
-            //}
+            }
             ?>
         </tbody>
     </table>
