@@ -17,8 +17,8 @@
         </thead>
         <tbody>
             <?php
-                foreach ($users ?? [] as $user) {
-                    echo "
+            foreach ($users ?? [] as $user) {
+                echo "
                         <tr>
                             <td>{$user->id}</td>
                             <td>{$user->name}</td>
@@ -30,7 +30,7 @@
                             </td>
                         </tr>
                     ";
-                }
+            }
             ?>
         </tbody>
     </table>
