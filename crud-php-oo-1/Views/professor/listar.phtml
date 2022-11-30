@@ -17,7 +17,7 @@
         <tbody>
             <?php
             //if (isset($professores) && sizeOf($professores) > 0) {
-                foreach ($professores as $professor) {
+                foreach ($professores ?? [] as $professor) {
                     echo "
                             <tr>
                                 <td>{$professor->id}</td>

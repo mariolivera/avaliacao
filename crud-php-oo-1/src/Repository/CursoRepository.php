@@ -10,11 +10,8 @@ use PDO;
 
 class CursoRepository implements RepositoryInterface
 {
-
     public const TABLE = "tb_cursos";
-
     public PDO $pdo;
-
     public function __construct()
     {
         $this->pdo = DatabaseConnection::abrirConexao();
@@ -32,12 +29,9 @@ class CursoRepository implements RepositoryInterface
                     tb_cursos.status as curso_status,
                     tb_categorias.id as categoria_id,
                     tb_categorias.nome as categoria_nome 
-                    FROM " . self::TABLE . " INNER JOIN tb_categorias ON tb_cursos.categoria_id = tb_categorias.id";
-
+                    FROM " . self::TABLE." INNER JOIN tb_categorias ON tb_cursos.categoria_id = tb_categorias.id";
         $query = $conexao->query($sql);
-
         $query->execute();
-
         return $query->fetchAll();
     }
 
@@ -52,12 +46,9 @@ class CursoRepository implements RepositoryInterface
                     tb_cursos.status as curso_status,
                     tb_categorias.id as categoria_id,
                     tb_categorias.nome as categoria_nome 
-                    FROM " . self::TABLE . " INNER JOIN tb_categorias ON tb_cursos.categoria_id = tb_categorias.id WHERE tb_cursos.id = '{$id}'";
-
+                    FROM " . self::TABLE." INNER JOIN tb_categorias ON tb_cursos.categoria_id = tb_categorias.id WHERE tb_cursos.id = '{$id}'";
         $query = $conexao->query($sql);
-
         $query->execute();
-
         $result = $query->fetch();
         $curso = new Curso();
         $curso->id = $result["curso_id"];
@@ -65,7 +56,6 @@ class CursoRepository implements RepositoryInterface
         $curso->descricao = $result["curso_descricao"];
         $curso->cargaHoraria = intval($result["curso_carga_horaria"]);
         $curso->categoria_id = intval($result["categoria_id"]);
-
         return $curso;
     }
 
@@ -80,32 +70,28 @@ class CursoRepository implements RepositoryInterface
                 '1', 
                 '{$dados->categoria_id}'
             );";
-
         $this->pdo->query($sql);
-
         return $dados;
     }
 
-    public function atualizar(object $dados, string $id): object
+    public function atualizar(object $novosDados, string $id): object
     {
         $sql = "UPDATE " . self::TABLE .
             " SET 
-        nome = '{$dados->nome}',
-        descricao = '{$dados->descricao}',
+        nome = '{$novosDados->nome}',
+        descricao = '{$novosDados->descricao}',
         status = 1,
-        cargaHoraria = '{$dados->cargaHoraria}',
-        categoria_id = '{$dados->categoria_id}' WHERE id = '{$id}'";
-
+        cargaHoraria = '{$novosDados->cargaHoraria}',
+        categoria_id = '{$novosDados->categoria_id}' WHERE id = '{$id}'";
         $this->pdo->query($sql);
-
-        return $dados;
+        return $novosDados;
     }
 
     public function excluir(string $id): void
     {
-        $conexao = DatabaseConnection::abrirConexao();
+        //$conexao = DatabaseConnection::abrirConexao();
         $sql = "DELETE FROM " . self::TABLE . " WHERE id = '{$id}'";
-        $query = $conexao->query($sql);
+        $query = $this->pdo->query($sql);
         $query->execute();
     }
 }

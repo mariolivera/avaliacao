@@ -15,9 +15,6 @@ CREATE TABLE tb_alunos (
 
 CREATE TABLE tb_professores (
     id INT PRIMARY KEY AUTO_INCREMENT,
-    endereco VARCHAR(45) NOT NULL,
-    formacao VARCHAR(45) NOT NULL,
-    status TINYINT NOT NULL,
     nome VARCHAR(100) NOT NULL,
     cpf CHAR(11) UNIQUE NOT NULL
 );
