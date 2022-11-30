@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use App\Model\Aluno;
+use App\Notification\WebNotification;
 use App\Repository\AlunoRepository;
 use App\Security\UserSecurity;
 use Dompdf\Dompdf;
@@ -21,9 +22,7 @@ class AlunoController extends AbstractController
 
     public function listar(): void
     {
-        if(UserSecurity::isLogged() === false){
-            die('Erro, precisa estar logado');
-        }
+        $this->checkLogin();
 
         $alunos = $this->repository->buscarTodos();
 
@@ -59,12 +58,13 @@ class AlunoController extends AbstractController
 
             die('Vish, aconteceu um erro');
         }
-
+        WebNotification::add('Aluno cadastrado', 'success');
         $this->redirect('/alunos/listar');
     }
 
     public function editar(): void
     {
+        $this->checkLogin();
         $id = $_GET['id'];
         $rep = new AlunoRepository();
         $aluno = $rep->buscarUm($id);
@@ -75,20 +75,22 @@ class AlunoController extends AbstractController
             $aluno->cpf = $_POST['cpf'];
             $aluno->email = $_POST['email'];
             $aluno->genero = $_POST['genero'];
-    
+
             try {
                 $rep->atualizar($aluno, $id);
             } catch (Exception $exception) {
                 if (true === str_contains($exception->getMessage(), 'cpf')) {
                     die('CPF ja existe');
                 }
-    
+
                 if (true === str_contains($exception->getMessage(), 'email')) {
                     die('Email ja existe');
                 }
-    
+
                 die('Vish, aconteceu um erro');
             }
+
+            WebNotification::add('Aluno editado com sucesso', 'success');
             $this->redirect('/alunos/listar');
         }
     }
@@ -98,9 +100,9 @@ class AlunoController extends AbstractController
         $id = $_GET['id'];
 
         $this->repository->excluir($id);
-        
-        $this->redirect('/alunos/listar');
 
+        WebNotification::add('Aluno excluido com sucesso', 'danger');
+        $this->redirect('/alunos/listar');
     }
 
     public function relatorio(): void
@@ -140,14 +142,14 @@ class AlunoController extends AbstractController
             </table>
         ";
 
-        // $dompdf = new Dompdf();
-        // $dompdf->setPaper('A4', 'portrait'); // tamanho da pagina
+        $dompdf = new Dompdf();
+        $dompdf->setPaper('A4', 'portrait'); // tamanho da pagina
 
-        // $dompdf->loadHtml($design); //carrega o conteudo do PDF
+        $dompdf->loadHtml($design); //carrega o conteudo do PDF
 
-        // $dompdf->render(); //aqui renderiza 
-        // $dompdf->stream('relatorio-alunos.pdf', [
-        //     'Attachment' => 0,
-        // ]); //é aqui que a magica acontece
+        $dompdf->render(); //aqui renderiza 
+        $dompdf->stream('relatorio-alunos.pdf', [
+            'Attachment' => 0,
+        ]); //é aqui que a magica acontece
     }
 }
