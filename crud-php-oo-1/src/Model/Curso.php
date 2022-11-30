@@ -4,11 +4,12 @@ declare(strict_types=1);
 
 namespace App\Model;
 
-class Curso extends Pessoa
+class Curso
 {
-    //public string $nome;
-    public string $periodo;
-    public string $professor;
-    public string $laboratorio;
-    //public array $ementa;
+    public string $nome;
+    public int $cargaHoraria;
+    public string $descricao;
+    public bool $status;
+    public int $categoria_id;
+    // public Categoria $categoria;
 }
