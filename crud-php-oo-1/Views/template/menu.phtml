@@ -7,13 +7,15 @@
         <a href="/professores/listar" class="btn btn-outline-dark">Professor</a>
 
         <a href="/cursos/listar" class="btn btn-outline-dark">Cursos</a>
-        <a href="/ususarios/listar" class="btn btn-outline-dark">Usuários</a>
+
+        <a href="/usuarios/listar" class="btn btn-outline-dark">Usuários</a>
     </div>
 
     <div class="text-end">
-        Bem vindo <?php echo APP\Security\UserSecurity::getUser()->name; ?>
+        Bem vindo <?php echo App\Security\UserSecurity::getUser()->name; ?>
         <a href="/desconectar" class="btn btn-outline-danger">Desconectar</a>
     </div>
 </nav>
 
 <hr>
+<?php App\Notification\WebNotification::show(); ?>
