@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use App\Model\Professor;
 use App\Notification\WebNotification;
 use App\Repository\ProfessorRepository;
 use Exception;
@@ -11,11 +12,18 @@ use Exception;
 class ProfessorController extends AbstractController
 {
     // public const REPOSITORY = new ProfessorRepository();
+    private ProfessorRepository $repository;
+
+    public function __construct()
+    {
+        $this->repository = new ProfessorRepository();
+    }
 
     public function listar(): void
     {
-        $rep = new ProfessorRepository();
-        $professores = $rep->buscarTodos();
+        //$rep = new ProfessorRepository();
+        //$professores = $rep->buscarTodos();
+        $professores = $this->repository->buscarTodos();
 
         $this->render("professor/listar", [
             'professores' => $professores,
@@ -24,15 +32,32 @@ class ProfessorController extends AbstractController
 
     public function cadastrar(): void
     {
-        echo "Pagina de cadastrar";
+        if (true === empty($_POST)) {
+            $this->render('professor/cadastrar');
+            return;
+        }
+        $professor = new Professor();
+        $professor->nome = $_POST['nome'];
+        $professor->cpf = $_POST['cpf'];
+        try {
+            $this->repository->inserir($professor);
+        } catch (Exception $exception){
+            if (true === str_contains($exception->getMessage(), 'cpf')){
+                die ('cpf já existente');
+            }
+            die('Error, estamos trabalhando no problema');
+        }
+        WebNotification::add('Professor cadastrado', 'success');
+        $this->redirect('/professores/listar');
     }
 
     public function excluir(): void
     {
         $id = $_GET['id'];
-        $rep = new ProfessorRepository();
-        $rep->excluir($id);
-        WebNotification::add('Aluno excluido com sucesso', 'danger');
+        //$rep = new ProfessorRepository();
+        //$rep->excluir($id);
+        $this->repository->excluir($id);
+        WebNotification::add('professor excluido com sucesso, mó paia excluiram o proffesor, diabo é isso alé', 'danger');
         $this->redirect("/professores/listar");
     }
 
@@ -41,26 +66,18 @@ class ProfessorController extends AbstractController
         $this->checkLogin();
         $id = $_GET['id'];
         $rep = new ProfessorRepository();
-        $aluno = $rep->buscarUm($id);
-        $this->render('aluno/editar', [$aluno]);
+        $professor = $rep->buscarUm($id);
+        $this->render('professor/editar', [$professor]);
         if (false === empty($_POST)) {
-            $aluno->nome = $_POST['nome'];
-            $aluno->dataNascimento = $_POST['nascimento'];
-            $aluno->cpf = $_POST['cpf'];
-            $aluno->email = $_POST['email'];
-            $aluno->genero = $_POST['genero'];
-
+            $professor->nome = $_POST['nome'];
+            $professor->cpf = $_POST['cpf'];
+            
             try {
-                $rep->atualizar($aluno, $id);
+                $rep->atualizar($professor, $id);
             } catch (Exception $exception) {
                 if (true === str_contains($exception->getMessage(), 'cpf')) {
                     die('CPF ja existe');
                 }
-
-                if (true === str_contains($exception->getMessage(), 'email')) {
-                    die('Email ja existe');
-                }
-
                 die('Vish, aconteceu um erro');
             }
 
