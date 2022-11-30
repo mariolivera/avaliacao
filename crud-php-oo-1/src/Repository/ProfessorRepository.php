@@ -1,7 +1,6 @@
 <?php
 
 declare(strict_types=1);
-
 namespace App\Repository;
 
 use App\Connection\DatabaseConnection;
@@ -22,12 +21,10 @@ class ProfessorRepository implements RepositoryInterface
     {
        // $conexao = DatabaseConnection::abrirConexao();
 
-        $sql = "SELECT * FROM " . self::TABLE;
+        $sql = 'SELECT * FROM ' .self::TABLE;
         //$query = $conexao->query($sql);
         $query = $this->pdo->query($sql);
-
         $query->execute();
-
         return $query->fetchAll(PDO::FETCH_CLASS, Professor::class);
     }
 
@@ -43,15 +40,12 @@ class ProfessorRepository implements RepositoryInterface
     {
         //$matricula = date('Ymds') . substr($dados->cpf, -2);
 
-        $sql = "INSERT INTO " . self::TABLE .
-            "(nome, cpf) " .
+        $sql = "INSERT INTO ".self::TABLE ."(nome, cpf) ".
             "VALUES ( 
                 '{$dados->nome}', 
                 '{$dados->cpf}'
             );";
-
         $this->pdo->query($sql);
-
         return $dados;
     }
 
@@ -62,9 +56,7 @@ class ProfessorRepository implements RepositoryInterface
                 nome='{$novosDados->nome}',
                 cpf='{$novosDados->cpf}' 
             WHERE id = '{$id}';";
-
         $this->pdo->query($sql);
-
         return $novosDados;
     }
 

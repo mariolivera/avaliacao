@@ -24,9 +24,8 @@ class ProfessorController extends AbstractController
         //$rep = new ProfessorRepository();
         //$professores = $rep->buscarTodos();
         $professores = $this->repository->buscarTodos();
-
-        $this->render("professor/listar", [
-            'professores' => $professores,
+        $this->render('professor/listar', [
+            'professores'=>$professores,
         ]);
     }
 
@@ -41,11 +40,11 @@ class ProfessorController extends AbstractController
         $professor->cpf = $_POST['cpf'];
         try {
             $this->repository->inserir($professor);
-        } catch (Exception $exception){
-            if (true === str_contains($exception->getMessage(), 'cpf')){
-                die ('cpf já existente');
+        }catch(Exception $exception){
+            if (true === str_contains($exception->getMessage(), 'cpf')) {
+                die('cpf já existente');
             }
-            die('Error, estamos trabalhando no problema');
+            
         }
         WebNotification::add('Professor cadastrado', 'success');
         $this->redirect('/professores/listar');
@@ -65,24 +64,38 @@ class ProfessorController extends AbstractController
     {
         $this->checkLogin();
         $id = $_GET['id'];
-        $rep = new ProfessorRepository();
-        $professor = $rep->buscarUm($id);
+        //$rep = new ProfessorRepository();
+        $professor = $this->repository->buscarUm($id);
         $this->render('professor/editar', [$professor]);
         if (false === empty($_POST)) {
             $professor->nome = $_POST['nome'];
             $professor->cpf = $_POST['cpf'];
-            
+
             try {
-                $rep->atualizar($professor, $id);
+                $this->repository->atualizar($professor, $id);
             } catch (Exception $exception) {
                 if (true === str_contains($exception->getMessage(), 'cpf')) {
                     die('CPF ja existe');
                 }
-                die('Vish, aconteceu um erro');
+                
             }
 
             WebNotification::add('professor editado com sucesso', 'success');
             $this->redirect('/professores/listar');
         }
+        // private function rederizar(iterable $professores)
+        // {
+        //     resultado = '';
+        //     foreach($professores as $professor){
+        //         $resultado .="
+        //         <tr>
+        //             <td>{$professor->id}</td>
+        //             <td>{$professor->nome}</td>
+        //             <td>{$professor->cpf}</td>
+        //         </tr>
+        //         ";
+        //         return $resultado;
+        //     }
+        //}
     }
 }
