@@ -10,6 +10,9 @@
             <tr>
                 <th>#ID</th>
                 <th>Nome</th>
+                <th>Carga Horaria</th>
+                <th>Descrição</th>
+                <th>Status</th>
                 <th>Categoria</th>
                 <th>Ações</th>
             </tr>
@@ -22,10 +25,13 @@
                             <tr>
                                 <td>{$curso['curso_id']}</td>
                                 <td>{$curso['curso_nome']}</td>
+                                <td>{$curso['curso_status']}</td>
+                                <td>{$curso['curso_descricao']}</td>
+                                <td>{$curso['curso_carga_horaria']}</td>
                                 <td>{$curso['categoria_nome']}</td>
                                 <td>
-                                    <a href='/cursos/editar?id={$curso['curso_id']}' class='btn btn-warning'>Editar</a>
-                                    <a href='/cursos/excluir?id={$curso['curso_id']}' class='btn btn-danger'>Deletar</a>
+                                    <a href='/cursos/editar?id={$curso['curso_id']}' class='btn btn-outline-warning btn-sm'>Editar</a>
+                                    <a href='/cursos/excluir?id={$curso['curso_id']}' class='btn btn-outline-danger btn-sm'>Deletar</a>
                                 </td>
                             </tr>
                         ";
