@@ -4,11 +4,13 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use App\Security\UserSecurity;
+
 abstract class AbstractController
 {
     public function render(string $view, ?array $dados = null, bool $navbar = true): void
     {
-        if(isset($dados)){
+        if (isset($dados)) {
             extract($dados);
         }
 
@@ -21,8 +23,15 @@ abstract class AbstractController
         include_once '../views/template/footer.phtml';
     }
 
-    public function redirect(string $local):void
+    public function redirect(string $local): void
     {
-        header('location: '. $local);
+        header('location: ' . $local);
+    }
+
+    public function checkLogin()
+    {
+        if (UserSecurity::isLogged() === false) {
+            $this->redirect('/login');
+        }
     }
 }
