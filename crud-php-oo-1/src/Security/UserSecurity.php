@@ -22,8 +22,8 @@ abstract class UserSecurity
     {
         $user->password = '';
         $_SESSION['user_escola'] = $user;
-
     }
+
     public static function getUser(): User
     {
         return $_SESSION['user_escola'];
